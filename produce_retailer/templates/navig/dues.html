@@ -1,0 +1,30 @@
+<h2>Outstanding Dues</h2>
+
+{% if error %}
+    <p>{{ error }}</p>
+{% endif %}
+
+{% if summary %}
+    <h3>Total Dues: {{ summary.total_due }}</h3>
+{% endif %}
+
+{% if records %}
+    <table>
+        <thead>
+            <tr>
+                <th>Vendor Name</th>
+                <th>Crop Name (Item)</th>
+                <th>Due Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.vendor_name }}</td>
+                    <td>{{ record.item_name }}</td>
+                    <td>{{ record.due }}</td> <!-- Display the due amount -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by Item</title>
+</head>
+<body>
+    <h2>Search Records by Item Name</h2>
+    
+    <!-- Search form -->
+    <form method="POST">
+        <label for="itemName">Enter Item Name:</label>
+        <input type="text" name="itemName" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display the summary if records are found -->
+    {% if summary %}
+        <h3>Summary for Item: {{ summary.item_name }}</h3>
+        <p>Total Weight/No.of items (all records): {{ summary.total_weight }} kg</p>
+        <p>Total Amount: ₹{{ summary.total_bill }}</p>
+
+        <p><a href="{{ url_for('view_details', item_name=summary.item_name) }}">See more details</a></p>
+    {% else %}
+        {% if error %}
+            <p>Error: {{ error }}</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

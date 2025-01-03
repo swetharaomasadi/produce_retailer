@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('{{ url_for('static', filename='images/home_background.png') }}'); /* Using Flask's url_for */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .buttons {
+            text-align: center;
+            color: white;
+        }
+        .button {
+            display: block;
+            width: 300px;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 20px;
+            color: white;
+            background-color: orange; /* Button color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #e69500; /* Slightly darker orange on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <h1>Home Page</h1>
+        <p id="greeting" style="font-size: 18px;"></p>
+        <a href="{{ url_for('enter_records_home') }}" class="button">Enter a record</a>
+        <a href="{{ url_for('view_details') }}" class="button">View Records</a>
+    </div>
+
+    <script>
+        // JavaScript to dynamically update the greeting based on the time
+        const greetingElement = document.getElementById('greeting');
+        const now = new Date();
+        const hours = now.getHours();
+
+        let greeting = '';
+        if (hours < 12) {
+            greeting = 'Good Morning';
+        } else if (hours < 18) {
+            greeting = 'Good Afternoon';
+        } else {
+            greeting = 'Good Evening';
+        }
+
+        greetingElement.textContent = greeting;
+    </script>
+</body>
+</html>

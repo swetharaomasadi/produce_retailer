@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by Date</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Search by Date</h1>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="searchDate" class="form-label">Enter Date (DD-MM-YYYY):</label>
+                <input type="text" name="searchDate" class="form-control" placeholder="DD-MM-YYYY">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+
+        {% if total_profit is not none %}
+        <h3 class="mt-4">Results for {{ search_date }}</h3>
+        <p>Total Earnings: ₹{{ total_earnings }}</p>
+        <p>Total Expenditures: ₹{{ total_expenditures }}</p>
+        <h4>Total Profit: ₹{{ total_profit }}</h4>
+        
+        <h5 class="mt-4">Records for {{ search_date }}:</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in total_records %}
+                    <tr>
+                        <td>{{ record.description if record.description else 'N/A' }}</td>
+                        <td>₹{{ record.amount_spent if record.amount_spent else record.total_bill }}</td>
+                        <td>{{ 'Expenditure' if record.amount_spent else 'Earning' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>

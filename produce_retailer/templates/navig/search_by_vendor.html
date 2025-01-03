@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search by Vendor</title>
+</head>
+<body>
+
+    <h1>Search by Vendor</h1>
+
+    <!-- Form to search by vendor name -->
+    <form method="POST">
+        <label for="vendorName">Enter Vendor Name:</label>
+        <input type="text" id="vendorName" name="vendorName" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if summary %}
+        <h2>Summary for Vendor: {{ summary.vendor_name }}</h2>
+        <p>Total Weight: {{ summary.total_weight }} kg</p>
+        <p>Total Bill: ₹{{ summary.total_bill }}</p>
+        <p>Total Due: ₹{{ summary.total_due }}</p>
+    {% endif %}
+
+    {% if records %}
+        <h3>Records:</h3>
+        <table>
+            <tr>
+                <th>Item Name</th>
+                <th>Weight (kg)</th>
+                <th>Cost per kg</th>
+                <th>Total Bill</th>
+                <th>Amount Paid</th>
+                <th>Due</th>
+            </tr>
+            {% for record in records %}
+                <tr>
+                    <td>{{ record.item_name }}</td>
+                    <td>{{ record.weight }}</td>
+                    <td>₹{{ record.cost_per_kg }}</td>
+                    <td>₹{{ record.total_bill }}</td>
+                    <td>₹{{ record.amount_paid }}</td>
+                    <td>₹{{ record.total_bill - record.amount_paid }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
